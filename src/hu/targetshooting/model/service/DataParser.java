@@ -12,6 +12,7 @@ public class DataParser {
         lines.remove(0);
         return lines.stream()
                 .map(line -> new ShotResult(++id, line))
+                .collect(Collectors.toList());
 
 
     }
