@@ -3,6 +3,9 @@ package hu.targetshooting.model.domain;
 import hu.targetshooting.controller.ShotService;
 import hu.targetshooting.model.service.ShotResultHelper;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class ShotResult {
     private final int id;
     private final String shots;
@@ -23,6 +26,21 @@ public class ShotResult {
 
         return score;
     }
+    public Integer getShotCount() {
+        return shots.length();
+    }
+    public String getSuccessShotIndexes() {
+        return IntStream.range(0, shots.length())
+                .filter(i -> shots.charAt(i) == '+')
+                .mapToObj(i -> String.valueOf(i + 1))
+                .collect(Collectors.joining(" "));
+    }
+    public long countSuccessShots() {
+        return shots.chars()
+                .filter(i -> (char) i == '+')
+                .count();
+    }
+
     public boolean hasTwoSuccessfulShotsInRow() {
         return shots.contains("++");
     }
