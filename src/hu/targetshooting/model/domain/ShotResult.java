@@ -3,6 +3,7 @@ package hu.targetshooting.model.domain;
 import hu.targetshooting.controller.ShotService;
 import hu.targetshooting.model.service.ShotResultHelper;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -40,8 +41,13 @@ public class ShotResult {
                 .filter(i -> (char) i == '+')
                 .count();
     }
-
     public boolean hasTwoSuccessfulShotsInRow() {
         return shots.contains("++");
+    }
+    public Integer getLongestSuccessSequenceSize() {
+        return Arrays.stream(shots.split("-"))
+                .mapToInt(String::length)
+                .max()
+                .getAsInt();
     }
 }
